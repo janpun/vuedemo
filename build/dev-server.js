@@ -63,6 +63,20 @@ app.use(hotMiddleware)
 var staticPath = path.posix.join(config.dev.assetsPublicPath, config.dev.assetsSubDirectory)
 app.use(staticPath, express.static('./static'))
 
+
+// json server
+var jsonServer = require('json-server')
+const apiServer = jsonServer.create()
+const apiRouter = jsonServer.router('db.json')
+const apimiddlewares = jsonServer.defaults()
+
+apiServer.use(apimiddlewares)
+apiServer.use('/api', apiRouter)
+apiServer.listen(port + 1, () => {
+  console.log('JSON Server is running')
+})
+
+
 var uri = 'http://localhost:' + port
 
 var _resolve

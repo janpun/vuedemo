@@ -25,7 +25,7 @@
       </div>
     </div>
     <div class="index-right">
-      <slide-show :slides="slides" :inv="invTime"></slide-show>
+      <!--<slide-show :slides="slides" :inv="invTime"></slide-show>-->
       <div class="index-board-list">
         <div
           class="index-board-item"
@@ -46,6 +46,14 @@
 
 <script>
   export default {
+    created: function () {
+      this.$http.get('api/getNewsList')
+      .then(function (res) {
+        this.newsList = res.data
+      }, function (err) {
+        console.log(err)
+      })
+    },
     data () {
       return {
         productList: {
@@ -95,25 +103,7 @@
             ]
           }
         },
-        newsList: [
-          {
-            title: '数据统计',
-            url: 'http://starcraft.com'
-          },
-          {
-            title: '数据预测',
-            url: 'http://warcraft.com'
-          },
-          {
-            title: '流量分析',
-            url: 'http://overwatch.com',
-            hot: true
-          },
-          {
-            title: '广告发布',
-            url: 'http://hearstone.com'
-          }
-        ],
+        newsList: [],
         boardList: [
           {
             title: '开放产品',
